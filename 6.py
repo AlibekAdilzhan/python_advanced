@@ -4,8 +4,11 @@ import numpy as np
 
 hint_word = {'computer' : ['What would you use to play Doom-2', 'компьютер in english', 'com*uter', 'computer'], 
             'himalaya' : ['What mountain is the highest', 'Lamas live there', 'Dzhamalungma 8848m', 'himala*a', 'Go to school and study geography' ], 
-            'BMW' : ['Which is better BMW or Mersedes', 'Surely not mersedes', 'there are 3 letters?!', 'bmw is better'],
-            '0' : ['1 + 1 = ?', 'where', 'I did not say anything about the ring', '0']}
+            'BMW' : ['Which is better BMW or Mersedes', 'Surely not mersedes', 'are there 3 letters?!', 'bmw is better'],
+            '0' : ['1 + 1 = ?', 'where', 'I did not say anything about the ring', '0'],
+            'Mariana' : ['The deepest place in the world', '11022m', 'Ma*****', 'Mariana'],
+            'Jupyter' : ['The closest to the Sun planet', '******* notebook', 'Jup****', 'Jupyter'],
+            'Hiruzen' : ['The 3rd hokage', 'old man']}
 
 we_want_to_play = int(input('do you want to play? (0/1): '))
 
@@ -39,7 +42,7 @@ while we_want_to_play == 1:
             print(f'Player{j} have {points[j]} points, do your best!')
             print(f"Potential points are {potential_points}\n")
             print(f"Guess a word: {' '.join(board)}\n")
-            print(f"Hint: {hint}\n")
+            print(f"HINT: {hint}\n")
             user_guess = input("Enter a word or a letter: ")
             user_guess = user_guess.lower()
             if len(user_guess) == 1:
@@ -52,33 +55,34 @@ while we_want_to_play == 1:
 
                 if letter_in_word == True:
                     points[j] += potential_points # if the playerj guessed the word right he/she will get points
-                    print(f'Very well! player{j} now have {points[j]} points')
+                    print(f'CORRECT!, Very well! player{j} now have {points[j]} points')
 
                 else:
-                    print(f'Try better, player{j}, you can do this! (maybe)')
+                    print(f'INCORRECT!, Try better, player{j}, you can do this! (maybe)')
+                    if j == 1:
+                        k += 1
                     j += 1
-                    k += 1
 
             else:
                 if user_guess == the_word:
-                    print("Correct! Congratulations! The game has been ended")
+                    print("CORRECT! Congratulations! the word was guessed")
                     points[j] = potential_points * rounds
                     rounds = 0
                     game_over = True
 
                 else:
                     points[j] -= potential_points * rounds * 0.5
-                    print(f"Incorrect, think again, for the naglost' player{j} loses {potential_points * rounds * 0.5} points, now he/she have {points[j]} points")
+                    print(f"INCORRECT, think again, for the naglost' player{j} loses {potential_points * rounds * 0.5} points, now he/she have {points[j]} points")
+                    if j == 1:
+                        k += 1
                     j += 1
-                    k += 1
                 
             letter_in_word = False
 
         else:
             game_over = True
 
-    print('\n\n')
-
+    print('\n----GAME RESULTS----\n')
 
     if points[0] > points[1]:
         print(f'Player0 wins with {points[0]} points')
