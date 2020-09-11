@@ -15,7 +15,7 @@ persuades = ["The sum is quite big, so choose the money", "Wouldn't you be disap
             "What if there is a pen", "Hmmm, I can understand you, everyone is waiting for the miracle, but the mathematical expectation is very small!",
             "Won't you regret, my friend?", "The last chance to choose the money"]
 
-prizes_valuable = ['bmw x7', 'house', 'penthouse', 'toyota 80', 'planet', 'diamond'][
+prizes_valuable = ['bmw x7', 'house', 'penthouse', 'toyota 80', 'planet', 'diamond']
 prizes_not_valuable = ['pen', 'pencil', 'pineapple', 'brelok']
 
 
@@ -48,13 +48,14 @@ while we_want_to_play == 1:
         if rounds != 0:
             print("------------------------------")
             potential_points = np.random.randint(100, 1001) # points that is going to be added to the person who will guess the letter/word
-            if np.random.randint(0, 21) % 11 == 0:
+            if np.random.randint(0, 100) % 11 == 0:
                 print(f"What a luckyness. player{j} have a chance to win a really good thing or take really big money!")
                 number_of_persuades = np.random.randint(3, len(persuades)) # how many times I should ask to choose the money!
                 money = 1000000
-                if np.random.randint(0, 21) % 2 == 0: # The chance is 50/50 (either something valuable or not)
-                    random_prize_valuable = np.random.randint(0, len(prize_valuable))   # deciding what prize to give
-                    prize = prizes[random_prize_valuable]
+                valuable_or_not = np.random.randint(0, 21) % 2
+                if valuable_or_not == 0: # The chance is 50/50 (either something valuable or not)
+                    random_prize_valuable = np.random.randint(0, len(prizes_valuable))   # deciding what prize to give
+                    prize = prizes_valuable[random_prize_valuable]
                 else:
                     random_prize_not_valuable = np.random.randint(0, len(prizes_not_valuable))  # deciding what prize to give
                     prize = prizes_not_valuable[random_prize_not_valuable]
@@ -72,17 +73,17 @@ while we_want_to_play == 1:
                         break
                 
                 if prize_or_money == 0:
-                    if potential_points % 2 == 0:
-                        print(f"UUU, I knew that you are lucky. Congratulations!. Now you have bmw x7 and {points[j]} points. Let's continue the game!")
+                    if valuable_or_not % 2 == 0:
+                        print(f"UUU, I knew that you are lucky. Congratulations!. Now you have {prize}. Let's continue the game!")
                     else:
-                        print("I TOLD YOU! I TOLD you to choose the money. Oooh, you are really a crazy man! Okay, it's not the end. Let's continue the game!")
+                        print(f"I TOLD YOU! I TOLD you to choose the money. Oooh, you are really a crazy man! Now you have {prize}. Okay, it's not the end. Let's continue the game!")
 
                 else:
                     points[j] += money
                     print(f"Okay, man, this is quite well too. You have now {points[j]} points") #AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
             # else:
-            print(f'Player{j} have {points[j]} points, do your best!')
+            print(f'\nPlayer{j} have {points[j]} points, do your best!')
             print(f"Potential points are {potential_points}\n")
             print(f"Guess a word: {' '.join(board)}\n")
             print(f"HINT: {hint}\n")
